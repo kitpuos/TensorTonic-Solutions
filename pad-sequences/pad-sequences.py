@@ -13,10 +13,12 @@ def pad_sequences(seqs, pad_value=0, max_len=None):
     if max_len is None:
       max_len = max(len(seq) for seq in seqs)
     
-    padded_seqs = []
-    for seq in seqs:
-      truncated = seq[:max_len]
-      padded = truncated + [pad_value] * (max_len - len(truncated))
-      padded_seqs.append(padded)
-    
-    return np.array(padded_seqs, dtype = int)
+    # Initialize output with pad_value
+    result = np.full((len(seqs), max_len), pad_value, dtype=int)
+
+    # Copy sequences (truncate if needed)
+    for i, seq in enumerate(seqs):
+      length = min(len(seq), max_len)
+      result[i, :length] = seq[:length]
+
+    return result
