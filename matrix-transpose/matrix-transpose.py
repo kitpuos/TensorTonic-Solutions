@@ -5,5 +5,12 @@ def matrix_transpose(A):
     Return the transpose of matrix A (swap rows and columns).
     """
     # Write code here
+    
     A = np.asarray(A, dtype = np.float64)
-    return A.T
+    rows, cols = A.shape
+    transposed = np.zeros((cols, rows))
+    
+    for i in range(cols):
+        for j in range(rows):
+            transposed[i,j] = A[j,i]
+    return transposed
